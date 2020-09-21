@@ -5,8 +5,296 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AcademyDota2Lobby"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        Title="Academy Dota2" Height="720" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" Loaded="Window_Loaded">
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="Window.Loaded">
+            <BeginStoryboard>
+                <Storyboard>
+                    <DoubleAnimation Storyboard.TargetProperty="(Window.Opacity)"
+                                 From="0.0" To="1.0" Duration="0:0:1"
+                                 AutoReverse="False"/>
+                </Storyboard>
+            </BeginStoryboard>
+        </EventTrigger>
+    </Window.Triggers>
+
+    <Window.Resources>
+        <!--SCROLLBARS-->
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="Foreground" Value="#AA726E6E"/>
+            <Setter Property="Background" Value="DarkGray"/>
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid x:Name="GridRoot" Width="12" Background="{x:Null}">
+                            <Track x:Name="PART_Track" Grid.Row="0" IsDirectionReversed="true" Focusable="False">
+                                <Track.Thumb>
+                                    <Thumb x:Name="Thumb" Background="{TemplateBinding Foreground}" 
+                                               Style="{DynamicResource ScrollThumbs}"/>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton x:Name="PageUp" Command="ScrollBar.PageDownCommand" Opacity="0" Focusable="False"/>
+                                </Track.IncreaseRepeatButton>
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton x:Name="PageDown" Command="ScrollBar.PageUpCommand" Opacity="0" Focusable="False"/>
+                                </Track.DecreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
+                                <Setter Value="{DynamicResource ButtonSelectBrush}" 
+                                            TargetName="Thumb" Property="Background"/>
+                            </Trigger>
+                            <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
+                                <Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="Thumb" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                            <Trigger Property="Orientation" Value="Horizontal">
+                                <Setter TargetName="GridRoot" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="PART_Track" Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="-90"/>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Width" Value="Auto"/>
+                                <Setter Property="Height" Value="12"/>
+                                <Setter TargetName="Thumb" Property="Tag" Value="Horizontal"/>
+                                <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand"/>
+                                <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--BUTTON STYLE HEADER-->
+        <Style TargetType="{x:Type Button}"
+            x:Key="HoverButtonHeader">
+            <Setter Property="Background" Value="Green"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="DarkGoldenrod"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--IMAGE LOGO STYLE-->
+        <Style TargetType="{x:Type Image}"
+           x:Key="DropShadowImageLogo">
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <ScaleTransform
+                    ScaleX="1"
+                    ScaleY="1" />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect
+                    BlurRadius="20"
+                    ShadowDepth="0" 
+                    Opacity="0"
+                    Color="{DynamicResource ColorEffect}">
+                    </DropShadowEffect>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Image.MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation  
+                                Storyboard.TargetProperty="Effect.Opacity"
+                                From="0"
+                                To="1"                                     
+                                Duration="0:0:1">
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Image.MouseLeave">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="Effect.Opacity"
+                                From="1"
+                                To="0"
+                                Duration="0:0:1">
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Image.MouseLeftButtonDown">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                From="1"
+                                To=".9"
+                                Duration="0:0:0.1">
+                                </DoubleAnimation>
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                From="1"
+                                To=".9"
+                                Duration="0:0:0.1">
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+
+                <EventTrigger RoutedEvent="Image.MouseLeftButtonUp">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.ScaleX"
+                                From=".9"
+                                To="1"
+                                Duration="0:0:0.1">
+                                </DoubleAnimation>
+                                <DoubleAnimation
+                                Storyboard.TargetProperty="RenderTransform.ScaleY"
+                                From=".9"
+                                To="1"
+                                Duration="0:0:0.1">
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+
+    </Window.Resources>
+
+    <Grid Background="#383838">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.ColumnSpan="2" OpacityMask="#FF707070" Opacity="0.955">
+
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF292929" Offset="0"/>
+                    <GradientStop Color="#FF111111" Offset="1"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+
+            <StackPanel.Effect>
+                <DropShadowEffect Color="#FF111111" BlurRadius="30"  ShadowDepth="10" Opacity="1" />
+            </StackPanel.Effect>
+
+        </StackPanel>
+
+        <!--LOGO-->
+
+        <!--BUTTONS HEADER-->
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="60">
+            <Button x:Name="btnSettings" Width="56" Height="60" Panel.ZIndex="1" HorizontalAlignment="Left" materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    VerticalAlignment="Top" Background="#FFDE6816" BorderBrush="{x:Null}" Click="BtnSettings_Click" >
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FFFFAE00" TargetName="Border" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+                <materialDesign:PackIcon Kind="Settings"  Foreground="White" Height="35" Width="25"/>
+            </Button>
+
+            <Button x:Name="btnExit" Width="56" Height="60" Panel.ZIndex="1" HorizontalAlignment="Left" materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                    VerticalAlignment="Top" Margin="5,0,0,0" Background="#FF932626" BorderBrush="{x:Null}" Click="BtnExit_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="Border" Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#FFDE1515" TargetName="Border" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+                <materialDesign:PackIcon Kind="Power" Foreground="White" Height="35" Width="25"/>
+            </Button>
+        </StackPanel>
+
+        <!--GRID PRINCIPAL-->
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Margin="15 10 0 0" >
+            <ScrollViewer.Effect>
+                <DropShadowEffect BlurRadius="20"
+                    ShadowDepth="0" 
+                    Opacity="1"
+                    Color="#FFE05B0F" RenderingBias="Quality"/>
+            </ScrollViewer.Effect>
+            <StackPanel x:Name="StackPanelMain" Width="AUTO" >
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.RowSpan="2" Height="100" Width="120" >
+            <Image Source="Assets/logo.png" Height="100">
+                <Image.Resources>
+                    <Color x:Key="ColorEffect">Red</Color>
+                </Image.Resources>
+                <Image.Style>
+                    <StaticResource ResourceKey="DropShadowImageLogo"/>
+                </Image.Style>
+            </Image>
+        </StackPanel>
+
     </Grid>
+
 </Window>

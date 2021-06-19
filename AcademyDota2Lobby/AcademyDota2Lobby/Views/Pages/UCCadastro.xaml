@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="AcademyDota2Lobby.Views.UCCadastro"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AcademyDota2Lobby.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <materialDesign:TransitioningContent>
+        <materialDesign:TransitioningContent.OpeningEffects>
+            <materialDesign:TransitionEffect Kind="FadeIn" />
+            <materialDesign:TransitionEffect Kind="SlideInFromTop" />
+        </materialDesign:TransitioningContent.OpeningEffects>
+        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="35"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="GridBarraTitulo" Grid.ColumnSpan="2" Background="#FF403E3F" Margin="75,0,0,0" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,0">
+                    <materialDesign:PackIcon Kind="ArrowRight" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" Foreground="White" Width="20" Height="20"/>
+                    <TextBlock VerticalAlignment="Center" Text="CADASTRO" FontSize="22" FontFamily="Square721 Cn BT" Foreground="White"/>
+                </StackPanel>
+            </Grid>
+
+            <StackPanel Grid.Row="1" Margin="10">
+
+                <TextBlock Text="Nome:" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="20"/>
+                <TextBox x:Name="txtNome" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Player Nome"/>
+
+                <TextBlock Text="SteamID64:" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="20"/>
+                <TextBox x:Name="txtSteamID64" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Player SteamID64"/>
+
+                <TextBlock Text="Nick:" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="20"/>
+                <TextBox x:Name="txtNick" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Player Nick"/>
+                
+                <TextBlock Text="MMR:" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="20"/>
+                <TextBox  x:Name="txtMMR" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Player MMR"/>
+                
+                <TextBlock Text="Role: " FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="20"/>
+                <TextBox x:Name="txtRole" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Player Role"/>
+                
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="1" Margin="10">
+                
+               <TextBlock Text="Email:" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="20"/>
+                <TextBox x:Name="txtEmail" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Player Role" />
+                
+               <TextBlock Text="Facebook:" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="20"/>
+                <TextBox x:Name="txtFace" Style="{StaticResource MaterialDesignFloatingHintTextBox}" materialDesign:HintAssist.Hint="Player Role" />
+
+                <TextBlock Text="Pagamento:" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="20"/>
+                <DatePicker x:Name="txtDatePag"></DatePicker>
+
+                <TextBlock Text="Vencimento:" FontFamily="Champagne &amp; Limousines" Foreground="Gray" FontSize="20"/>
+                <DatePicker x:Name="txtDateVenc"></DatePicker>
+
+            </StackPanel>
+            
+            <StackPanel Grid.ColumnSpan="2" Grid.Row="3" >
+                <Button x:Name="btnRegister" Click="BtnRegister_Click" Width="100" Content="Registrar" FontFamily="Champagne &amp; Limousines" Margin="250,0" />
+            </StackPanel>
+
+        </Grid>
+
+    </materialDesign:TransitioningContent>
+</UserControl>

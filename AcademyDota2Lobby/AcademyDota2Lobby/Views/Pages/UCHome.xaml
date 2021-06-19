@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="AcademyDota2Lobby.Views.UCHome"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AcademyDota2Lobby.Views"
+             mc:Ignorable="d" 
+             d:DesignWidth="800" Height="640">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Image Source="/Assets/home.jpg" Stretch="UniformToFill" />
+
+        <StackPanel HorizontalAlignment="Center" Margin="158,71,158,0">
+            <Image Source="/Assets/logo.png" Width="50"/>
+            <TextBlock Text="Private League Dota 2" Foreground="White" 
+                   FontFamily="fonts/#iconfont"
+                   FontSize="26" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB83F3F"  Direction="0" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+            <TextBlock Text="Crie e controle seus lobby personalizados!" Foreground="White" 
+                   FontFamily="fonts/#iconfont"
+                   FontSize="26" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock.Effect>
+                    <DropShadowEffect Color="#FFB83F3F"  Direction="0" ShadowDepth="0"/>
+                </TextBlock.Effect>
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Title="Academy Dota2" Height="720" Width="1000" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" Loaded="Window_Loaded">
+    
     <Window.Triggers>
         <EventTrigger RoutedEvent="Window.Loaded">
             <BeginStoryboard>
@@ -20,6 +21,8 @@
     </Window.Triggers>
 
     <Window.Resources>
+
+        <ImageBrush x:Key="topImage" ImageSource="Assets/button-2.png"/>
         <!--SCROLLBARS-->
         <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
             <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
@@ -192,7 +195,67 @@
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="RadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Width" Value="180"/>
+            <Setter Property="FontSize" Value="22"/>
+            <Setter Property="Foreground" Value="#4B8EC4"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="MinHeight" Value="50"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="FontFamily" Value="Cambria"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                            <Border x:Name="border2"/>
+                            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              Content="{TemplateBinding Content}" Grid.Column="1" 
+                                              ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" 
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                              Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
 
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasContent" Value="True">
+                                <Setter Property="FocusVisualStyle">
+                                    <Setter.Value>
+                                        <Style>
+                                            <Setter Property="Control.Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate>
+                                                        <Rectangle Margin="14,0,0,0" SnapsToDevicePixels="True" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="Padding" Value="4,-1,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="{x:Null}"/>
+
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Background" TargetName="border2" Value="{StaticResource ResourceKey=topImage}">
+                                    <!--<Setter.Value>
+                                        <ImageBrush ImageSource="./images/back.png" />
+                                    </Setter.Value>-->
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="false">
+                                <Setter Property="Background" TargetName="border2" Value="Transparent"/>
+                                <Setter Property="Foreground" Value="#4B8EC4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
     </Window.Resources>
 
     <Grid Background="#383838">
@@ -201,7 +264,7 @@
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="50"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
@@ -223,8 +286,8 @@
         <!--LOGO-->
 
         <!--BUTTONS HEADER-->
-        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="60">
-            <Button x:Name="btnSettings" Width="56" Height="60" Panel.ZIndex="1" HorizontalAlignment="Left" materialDesign:ShadowAssist.ShadowDepth="Depth3"
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Height="50">
+            <Button x:Name="btnSettings" Width="56" Height="50" Panel.ZIndex="1" HorizontalAlignment="Left" materialDesign:ShadowAssist.ShadowDepth="Depth3"
                     VerticalAlignment="Top" Background="#FFDE6816" BorderBrush="{x:Null}" Click="BtnSettings_Click" >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -247,7 +310,7 @@
                 <materialDesign:PackIcon Kind="Settings"  Foreground="White" Height="35" Width="25"/>
             </Button>
 
-            <Button x:Name="btnExit" Width="56" Height="60" Panel.ZIndex="1" HorizontalAlignment="Left" materialDesign:ShadowAssist.ShadowDepth="Depth3"
+            <Button x:Name="btnExit" Width="56" Height="50" Panel.ZIndex="1" HorizontalAlignment="Left" materialDesign:ShadowAssist.ShadowDepth="Depth3"
                     VerticalAlignment="Top" Margin="5,0,0,0" Background="#FF932626" BorderBrush="{x:Null}" Click="BtnExit_Click">
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
@@ -272,19 +335,19 @@
         </StackPanel>
 
         <!--GRID PRINCIPAL-->
-        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Margin="15 10 0 0" >
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" Margin="10 10 0 0" >
             <ScrollViewer.Effect>
                 <DropShadowEffect BlurRadius="20"
                     ShadowDepth="0" 
                     Opacity="1"
-                    Color="#FFE05B0F" RenderingBias="Quality"/>
+                    RenderingBias="Quality"/>
             </ScrollViewer.Effect>
             <StackPanel x:Name="StackPanelMain" Width="AUTO" >
 
             </StackPanel>
         </ScrollViewer>
 
-        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.RowSpan="2" Height="100" Width="120" >
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Grid.RowSpan="2" Height="100" Width="94" >
             <Image Source="Assets/logo.png" Height="100">
                 <Image.Resources>
                     <Color x:Key="ColorEffect">Red</Color>
@@ -293,6 +356,26 @@
                     <StaticResource ResourceKey="DropShadowImageLogo"/>
                 </Image.Style>
             </Image>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.ColumnSpan="2">
+
+            <RadioButton Uid="0" Width="120" Style="{StaticResource RadioButtonStyle}" Click="BtnEvent_Click">
+                <TextBlock Text="HOME" />
+            </RadioButton>
+            <RadioButton Uid="1" Width="120" Style="{StaticResource RadioButtonStyle}" Click="BtnEvent_Click">
+                <TextBlock Text="LOBBY" />
+            </RadioButton>
+            <RadioButton Uid="2" Width="120" Style="{StaticResource RadioButtonStyle}" Click="BtnEvent_Click">
+                <TextBlock Text="RANKING"   />
+            </RadioButton>
+            <RadioButton Uid="3" Width="120" Style="{StaticResource RadioButtonStyle}" Click="BtnEvent_Click">
+                <TextBlock Text="CADASTRO" />
+            </RadioButton>
+            <RadioButton Uid="4" Width="120" Style="{StaticResource RadioButtonStyle}" Click="BtnEvent_Click">
+                <TextBlock Text="USERS"  />
+            </RadioButton>
+
         </StackPanel>
 
     </Grid>

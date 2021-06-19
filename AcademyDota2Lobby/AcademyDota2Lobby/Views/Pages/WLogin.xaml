@@ -1,0 +1,117 @@
+﻿<Window x:Class="AcademyDota2Lobby.Views.Pages.WLogin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AcademyDota2Lobby.Views.Pages"
+        mc:Ignorable="d"
+        Title="Login" Height="490" Width="720"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        MouseDown="Window_MouseDown"
+        Loaded="Window_Loaded">
+
+    <Border BorderBrush="#FF494949" BorderThickness="1" CornerRadius="5">
+        <Grid
+            Background="{StaticResource DefaultBackgroundBrush}">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <!--BUTTON-->
+            <Button Grid.Column="3" Width="15" Height="15" Style="{StaticResource CircleButtonMinimeze}" Name="btnMin" Click="btnMin_Click" Panel.ZIndex="1" ToolTip="Minimizar"></Button>
+
+            <Button Grid.Column="4" Width="15" Height="15" Style="{StaticResource CircleButtonClosed}" Name="btnClose" Click="btnClose_Click" Panel.ZIndex="1" ToolTip="Fechar"></Button>
+
+            <!--CONTENT-->
+            <!--#region PANEL LEFT-->
+            <StackPanel Grid.RowSpan="2" Panel.ZIndex="1">
+                <StackPanel.BitmapEffect>
+                    <DropShadowBitmapEffect Color="#00AAEB" Direction="240" ShadowDepth="3" Opacity="1" Softness="2" />
+                </StackPanel.BitmapEffect>
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="/AcademyDota2Lobby;component/Assets/home.jpg" Stretch="None"/>
+                </StackPanel.Background>
+
+                <!--<Grid VerticalAlignment="Bottom" Height="420"  >
+                    <Label Content="Public Room league dota 2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="5" FontSize="18"/>
+                </Grid>-->
+
+            </StackPanel>
+
+
+
+            <!--#endregion-->
+
+            <!--#region PANEL RIGHT-->
+            <StackPanel Grid.Row="1"  Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="4" Background="#16181E" Panel.ZIndex="0">
+
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0 5 0 50">
+                    <Image Source="/Assets/logo.png" Width="50"/>
+                    <TextBlock Text="Private League Dota 2" Foreground="White" 
+                   FontFamily="fonts/#iconfont"
+                   FontSize="26" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="#FFB83F3F"  Direction="0" ShadowDepth="0"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <TextBlock Text="Crie e controle seus lobby personalizados!" Foreground="White" 
+                   FontFamily="fonts/#iconfont"
+                   FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center" Height="25">
+                        <TextBlock.Effect>
+                            <DropShadowEffect Color="#FFB83F3F"  Direction="0" ShadowDepth="0"/>
+                        </TextBlock.Effect>
+                    </TextBlock>
+                </StackPanel>
+                
+                <!--<Image Source="/D2LClient;component/Assets/LOGO3.png" Height="160" Margin="35,0" />-->
+
+                <Grid VerticalAlignment="Bottom" Margin="35,0" Height="200">
+
+                    <Label Content="LOGIN" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="#FF7BA9AE" FontSize="18"/>
+
+                    <StackPanel VerticalAlignment="Center" Margin="15">
+                        <TextBox x:Name="tbxUsername" ToolTip="Email" Style="{StaticResource Textbox1}"/>
+
+                        <PasswordBox x:Name="pbxPassword" ToolTip="Password" Style="{StaticResource PasswordBox1}" />
+                    </StackPanel>
+
+                </Grid>
+
+                <Control x:Name="loading" Style="{StaticResource BusyAnimationStyle}" Visibility="Collapsed" Panel.ZIndex="0"/>
+
+                <Button Width="200" x:Name="btnLogin" Height="50" Style="{StaticResource ButtonLogin}" Margin="0,-40,0,0" Click="btnLogin_Click">
+                    <StackPanel>
+                        <TextBlock Text="LOGIN" FontSize="20" />
+                    </StackPanel>
+                </Button>
+
+                <StackPanel x:Name="panelLogin" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                    <CheckBox x:Name="saveEmail" Content="Salvar Email" HorizontalAlignment="Left" Margin="30,0" Foreground="Gray" Style="{DynamicResource CheckBox_RadioButtonStyle}" Click="saveEmail_Click" />
+                    <TextBlock Text="ESQUECEU A SENHA?" Foreground="Gray" Cursor="Hand"/>
+                </StackPanel>
+
+                <DockPanel>
+                    <DockPanel DockPanel.Dock="Top">
+                        <TextBlock x:Name="lblStatus" HorizontalAlignment="Center" TextWrapping="Wrap" Foreground="#00AAEB"
+                Text="" />
+                    </DockPanel>
+                </DockPanel>
+
+            </StackPanel>
+            <!--#endregion-->
+        </Grid>
+    </Border>
+</Window>

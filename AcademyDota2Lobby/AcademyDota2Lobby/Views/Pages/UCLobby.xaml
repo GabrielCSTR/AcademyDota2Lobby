@@ -1,0 +1,23 @@
+﻿<UserControl x:Class="AcademyDota2Lobby.Views.UCLobby"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:AcademyDota2Lobby.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <materialDesign:TransitioningContent>
+        <materialDesign:TransitioningContent.OpeningEffects>
+            <materialDesign:TransitionEffect Kind="FadeIn" />
+            <materialDesign:TransitionEffect Kind="SlideInFromTop" />
+        </materialDesign:TransitioningContent.OpeningEffects>
+       
+        <Grid>
+            
+        </Grid>
+        
+    </materialDesign:TransitioningContent>
+    
+</UserControl>

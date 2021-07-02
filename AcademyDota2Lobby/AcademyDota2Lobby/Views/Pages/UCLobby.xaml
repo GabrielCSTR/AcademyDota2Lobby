@@ -6,16 +6,132 @@
              xmlns:local="clr-namespace:AcademyDota2Lobby.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Height="640" d:DesignWidth="800"
+             Loaded="UserControl_Loaded">
     
     <materialDesign:TransitioningContent>
         <materialDesign:TransitioningContent.OpeningEffects>
             <materialDesign:TransitionEffect Kind="FadeIn" />
-            <materialDesign:TransitionEffect Kind="SlideInFromTop" />
+            <materialDesign:TransitionEffect Kind="SlideInFromRight" />
         </materialDesign:TransitioningContent.OpeningEffects>
        
         <Grid>
-            
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Background="#FFCFCFCF" Margin="0 25 0 0" >
+                <materialDesign:TransitioningContent x:Name="TrainsitionigContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.8}">
+                    <!--<ScrollViewer>-->
+                        <Border CornerRadius="5" Background="White" Margin="10">
+
+                            <Grid >
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="50"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+
+
+                                <TextBlock Grid.ColumnSpan="2" Margin="5" VerticalAlignment="Center" Text="#GAME" FontSize="22" FontFamily="Square721 Cn BT" Foreground="#FF666666" />
+                                <TextBlock Grid.Column="2" Text="MODO:"  VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="22" FontFamily="Square721 Cn BT" Foreground="#FF666666" Margin="195 0 0 0"  />
+                                <ComboBox x:Name="cmbModeGame"  Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Width="50">
+                                    <ComboBoxItem>AP</ComboBoxItem>
+                                    <ComboBoxItem>CM</ComboBoxItem>
+                                    <ComboBoxItem>AR</ComboBoxItem>
+                                    <ComboBoxItem>X1</ComboBoxItem>
+                                </ComboBox>
+
+                                <StackPanel Grid.Row="1" Grid.RowSpan="2" >
+                                    <ListView x:Name="ListViewAncient"  FontFamily="Champagne &amp; Limousines" FontSize="18" >
+                                        <!--context  Menu-->
+                                        <ListView.ContextMenu>
+                                            <ContextMenu Name="AncientIformationList" StaysOpen="true" Background="WhiteSmoke">
+                                                <ContextMenu.BitmapEffect>
+                                                    <BitmapEffectGroup/>
+                                                </ContextMenu.BitmapEffect>
+                                                <MenuItem Header="Kick" Name="KickPlayerContextMenu" Click="KickPlayerContextMenu_Click" />
+                                                <MenuItem Header="Ban" Name="BanPlayerContextMenu" Click="BanPlayerContextMenu_Click" />
+                                            </ContextMenu>
+                                        </ListView.ContextMenu>
+                                        <!--Bind Items-->
+                                        <ListView.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Kind="{Binding Numero}" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="#FF0A0808"/>
+                                                    <TextBlock Text="{Binding Player}" FontSize="17" VerticalAlignment="Center" Margin="20 0" FontFamily="Square721 Cn BT" Foreground="#FF32D132"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+
+                                </StackPanel>
+                                <StackPanel Grid.Row="1" Grid.RowSpan="2" Grid.Column="1">
+                                    <ListView x:Name="ListViewDire"  FontFamily="Champagne &amp; Limousines" FontSize="18" >
+                                        <!--context  Menu-->
+                                        <ListView.ContextMenu>
+                                            <ContextMenu Name="DireIformationList" StaysOpen="true" Background="WhiteSmoke">
+                                                <ContextMenu.BitmapEffect>
+                                                    <BitmapEffectGroup/>
+                                                </ContextMenu.BitmapEffect>
+                                                <MenuItem Header="Kick" Name="KickPlayerDireContextMenu" Click="KickPlayerDireContextMenu_Click" />
+                                                <MenuItem Header="Ban" Name="BanPlayerDireContextMenu" Click="BanPlayerDireContextMenu_Click" />
+                                            </ContextMenu>
+                                        </ListView.ContextMenu>
+                                        <!--Bind Items-->
+                                        <ListView.ItemTemplate >
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Kind="{Binding Numero}" Width="30" Height="30" VerticalAlignment="Center" Margin="5" Foreground="#FF0A0808"/>
+                                                    <TextBlock Text="{Binding Player}" FontSize="17" VerticalAlignment="Center" Margin="20 0" FontFamily="Square721 Cn BT" Foreground="#FFD13232"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ListView.ItemTemplate>
+                                    </ListView>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <materialDesign:PackIcon Kind="ArrowRight" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Foreground="#FFE0C72B" Width="30" Height="38" />
+                                    <TextBlock VerticalAlignment="Center" Text="LOGS" FontSize="22" FontFamily="Square721 Cn BT" Foreground="#FF666666" Margin="0,15,0,0" Height="33" />
+
+                                </StackPanel>
+                                <Border Grid.Row="3" Grid.ColumnSpan="2" Height="1" Margin="7" VerticalAlignment="Top" Background="#881B1B1B"/>
+                                <StackPanel Grid.Row="4" Grid.ColumnSpan="2" HorizontalAlignment="Left">
+                                    <RichTextBox  x:Name="txtLogsLobby"
+                                VerticalAlignment="Top"
+                                HorizontalAlignment="Left"
+                                Width="750"                     
+                                HorizontalScrollBarVisibility="Disabled"
+                                VerticalScrollBarVisibility="Auto" 
+                                Background="#FFC3C3C3"
+                                Block.LineHeight="2">
+                                    </RichTextBox>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="2" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button x:Name="btnStartLobby" Margin="0 0 10 0" Width="110" Height="40" Content="Start Lobby" FontFamily="Champagne &amp; Limousines" Background="#FF50F436" BorderBrush="#FF8CF436" />
+                                <Button x:Name="btnCreateLobby" Click="btnCreateLobby_Click" Margin="0 0 10 0" Width="110" Height="40" Content="Criar Lobby" FontFamily="Champagne &amp; Limousines" />
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Border>
+                    <!--</ScrollViewer>-->
+                </materialDesign:TransitioningContent>
+            </Grid>
+
         </Grid>
         
     </materialDesign:TransitioningContent>

@@ -94,6 +94,11 @@ namespace AcademyDota2Lobby.Views.Pages
             if (Authentication.Response != null && Authentication.Response.StatusCode != 200)
             {
                 lblStatus.Text = Authentication.Response.Error;
+                // loading
+                panelLogin.Visibility = Visibility.Visible;
+                btnLogin.Visibility = Visibility.Visible;
+                loading.Visibility = Visibility.Collapsed;
+
                 return;
             }
             else if (Authentication != null && Authentication.access_token != null)

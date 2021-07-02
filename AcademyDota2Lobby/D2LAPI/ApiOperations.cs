@@ -31,17 +31,14 @@ namespace D2LAPI
         {
             string endpoint = this.baseUrl + "login";
             string method = "POST";
-            string json = JsonConvert.SerializeObject(new
-            {
-                email = email,
-                password = password
-            });
+
+            string json = GetJson(email, password);
 
             WebClient wc = new WebClient();
             wc.Headers["Content-Type"] = "application/json";
             try
             {
-                string response = wc.UploadString(endpoint, method, json);
+                var response = wc.UploadString(endpoint, method, json);
                 return JsonConvert.DeserializeObject<User>(response);
             }
             catch (WebException ex)
@@ -87,7 +84,7 @@ namespace D2LAPI
                         Response = new
                         {
                             StatusCode = 500,
-                            Message = "O servidor se encontra offline no momento, tente novamente mas tarde!"
+                            Error = "O servidor se encontra offline no momento, tente novamente mas tarde!"
                         },
                     });
 
@@ -97,6 +94,83 @@ namespace D2LAPI
 
 
             }
+        }
+
+        private static string GetJson(string email, string password)
+        {
+            return JsonConvert.SerializeObject(new
+            {
+                email = email,
+                password = password
+            });
+        }
+
+        public List<BotD2> BotD2Handler(User _currentUser)
+        {
+            string endpoint = this.baseUrl + "botleague";
+            string json = JsonConvert.SerializeObject(new
+            {
+                access_token = _currentUser.access_token
+            });
+
+            WebClient wc = new WebClient();
+            wc.Headers["Content-Type"] = "application/json";
+            wc.Headers.Add(HttpRequestHeader.Authorization, "Bearer " + _currentUser.access_token);
+            try
+            {
+                string response = wc.DownloadString(endpoint); // GET
+                //string response = wc.UploadString(endpoint, method); // POST
+                return JsonConvert.DeserializeObject<List<BotD2>>(response);
+            }
+            catch (WebException ex)
+            {
+                // pegando responsta 
+                string responseText = string.Empty;
+
+                var responseStream = ex.Response?.GetResponseStream();
+
+                if (responseStream != null)
+                {
+                    using (var reader = new StreamReader(responseStream))
+                    {
+                        responseText = reader.ReadToEnd();
+                    }
+                }
+
+                if (responseText != string.Empty)
+                {
+                    // enviando resposta + status
+                    var message = JsonConvert.DeserializeObject<httpResponseAPI>(responseText);
+
+                    string responseAPI = JsonConvert.SerializeObject(new
+                    {
+                        Response = new
+                        {
+                            StatusCode = ((HttpWebResponse)ex.Response).StatusCode,
+                            Message = message.Message,
+                            Error = message.Error
+                        },
+                    });
+
+                    // return 
+                    return JsonConvert.DeserializeObject<List<BotD2>>(responseAPI);
+                }
+                else
+                {
+                    string responseAPI = JsonConvert.SerializeObject(new
+                    {
+                        Response = new
+                        {
+                            StatusCode = 500,
+                            Message = "O servidor se encontra offline no momento, tente novamente mas tarde!"
+                        },
+                    });
+
+                    // return 
+                    return JsonConvert.DeserializeObject<List<BotD2>>(responseAPI);
+                }
+            }
+
         }
     }
 }

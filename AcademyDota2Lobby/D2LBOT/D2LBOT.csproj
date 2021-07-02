@@ -4,15 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{81919ED4-E014-49D8-B56F-2A568461C6A0}</ProjectGuid>
+    <ProjectGuid>{55C2C2EA-3FF7-4BBE-BAC2-59B83BBAC2EE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>D2LAPI</RootNamespace>
-    <AssemblyName>D2LAPI</AssemblyName>
+    <RootNamespace>D2LBOT</RootNamespace>
+    <AssemblyName>D2LBOT</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,8 +31,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dota2, Version=0.9.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dota2.0.9.2\lib\net451\Dota2.dll</HintPath>
+    </Reference>
+    <Reference Include="DotaMatch, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotaMatch.1.0.0\lib\DotaMatch.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67, processorArchitecture=MSIL">
+      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
+    </Reference>
+    <Reference Include="SteamKit2, Version=1.8.0.26737, Culture=neutral, PublicKeyToken=ed3ce47ed5aad940, processorArchitecture=MSIL">
+      <HintPath>..\packages\SteamKit2.1.8.0\lib\net45\SteamKit2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,17 +56,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiOperations.cs" />
-    <Compile Include="Modal\BotD2.cs" />
-    <Compile Include="Modal\httpResponseAPI.cs" />
-    <Compile Include="Modal\User.cs" />
+    <Compile Include="Class\Client.cs" />
+    <Compile Include="Class\UserAccount.cs" />
+    <Compile Include="DotaBot\Dota 2\DotaClient.cs" />
+    <Compile Include="DotaBot\Dota 2\DotaClientParams.cs" />
+    <Compile Include="DotaBot\Dota 2\DotaGameStartParams.cs" />
+    <Compile Include="DotaBot\Dota 2\Enum\DotaClientStatus.cs" />
+    <Compile Include="DotaBot\Dota 2\Enum\DotaGameResult.cs" />
+    <Compile Include="DotaBot\Dota 2\SteamApiRequest.cs" />
+    <Compile Include="DotaBot\League\Enum\LeagueBotInfoType.cs" />
+    <Compile Include="DotaBot\League\LeagueBot.cs" />
+    <Compile Include="League.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\D2LUtil\D2LUtil.csproj">
+      <Project>{E23163AC-CFE5-4994-A456-47445A343C11}</Project>
+      <Name>D2LUtil</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy /d /y /r $(TargetPath) $(SolutionDir)AcademyDota2Lobby\bin\Debug</PostBuildEvent>
-  </PropertyGroup>
 </Project>

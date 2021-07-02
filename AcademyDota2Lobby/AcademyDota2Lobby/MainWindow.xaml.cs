@@ -25,7 +25,7 @@ namespace AcademyDota2Lobby
     /// </summary>
     public partial class MainWindow : Window
     {
-        private User CurrentUser { get; set; }
+        public static User CurrentUser { get; set; }
 
         public MainWindow()
         {

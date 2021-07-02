@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("D2LDatabase")]
+[assembly: AssemblyTitle("D2LUtil")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("D2LDatabase")]
+[assembly: AssemblyProduct("D2LUtil")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("76b58140-5b9b-48a8-97fc-b7cdb9c07f3e")]
+[assembly: Guid("e23163ac-cfe5-4994-a456-47445a343c11")]
 
 // Version information for an assembly consists of the following four values:
 //
